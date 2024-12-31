@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>New Year Countdown</title>
+  <style>
+    body {
+      font-family: 'Fredoka', sans-serif;
+      text-align: center;
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      background: linear-gradient(45deg, #ff0000, #00ff00);
+      animation: gradientShift 20s infinite alternate; /* 20s duration for fading */
+      transition: background 5s ease; /* Smooth transition for background change */
+    }
+
+    /* Keyframes for smoothly transitioning the background gradient */
+    @keyframes gradientShift {
+      0% {
+        background: linear-gradient(45deg, #ff0000, #00ff00);
+      }
+      25% {
+        background: linear-gradient(45deg, #ff8000, #ffff00);
+      }
+      50% {
+        background: linear-gradient(45deg, #0000ff, #ff00ff);
+      }
+      75% {
+        background: linear-gradient(45deg, #ff00ff, #00ffff);
+      }
+      100% {
+        background: linear-gradient(45deg, #ff8000, #00ffff);
+      }
+    }
+
+    h1 {
+      font-size: 48px;
+      margin: 0;
+      animation: textShift 20s infinite alternate;
+      text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7); /* Shadow for h1 */
+    }
+
+    .countdown {
+      font-size: 36px;
+      font-weight: bold;
+      margin-top: 20px;
+      animation: textShift 20s infinite alternate;
+      text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7); /* Shadow for countdown */
+    }
+
+    .current-time {
+      font-size: 24px;
+      margin-top: 10px;
+      color: rgba(255, 255, 255, 0.7);
+      text-shadow: 4px 4px 6px rgba(0, 0, 0, 0.7); /* Shadow for current time */
+    }
+
+    @keyframes textShift {
+      0% {
+        color: white;
+      }
+      50% {
+        color: #f39c12;
+      }
+      100% {
+        color: #2980b9;
+      }
+    }
+
+    /* Style for the video */
+    video {
+      margin-top: 30px;
+      width: 320px; /* Set the width for the video */
+      height: auto;
+      border-radius: 8px;
+      box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+    }
+
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <h1>New Year's Countdown</h1>
+  <div class="countdown" id="countdown"></div>
+  <div class="current-time" id="current-time"></div>
+
+  <!-- Video below the time with controls enabled -->
+  <video id="video" loop muted controls>
+    <source src="video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+  </video>
+
+  <script>
+    function updateTime() {
+      const now = new Date();
+      const newYear = new Date('2025-01-01T00:00:00');
+
+      const remainingTime = newYear - now;
+      
+      const days = Math.floor(remainingTime / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((remainingTime % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((remainingTime % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((remainingTime % (1000 * 60)) / 1000);
+
+      document.getElementById("countdown").innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
+
+      const currentTime = now.toLocaleTimeString();
+      document.getElementById("current-time").innerHTML = `Current Time: ${currentTime}`;
+    }
+
+    setInterval(updateTime, 1000);
+  </script>
+
+</body>
+</html>
